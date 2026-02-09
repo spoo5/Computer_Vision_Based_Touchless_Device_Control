@@ -6,7 +6,7 @@ A computer vision system that allows touchless control of your computer using he
 - **Shreyas**: Virtual keyboard typing (integration pending)
 - **Om**: System architecture and framework design
 - **Kalash**: Cursor movement using head orientation
-- **[Your Name]**: Hand gesture features + System integration
+- **Sanidhya**: Hand gesture features + System integration
 
 ## Features
 
