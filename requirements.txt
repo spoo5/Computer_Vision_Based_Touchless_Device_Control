@@ -1,0 +1,15 @@
+# Computer Vision Based Touchless Device Control
+# Combined requirements from Kalash and Om's projects
+
+# Core dependencies
+opencv-python>=4.8.0
+mediapipe==0.10.20
+numpy>=1.24.0
+
+# Mouse and keyboard control
+pyautogui>=0.9.54
+keyboard>=0.13.5
+
+# Optional: For future hand gesture features
+# Uncomment when implementing hand tracking
+# Add any additional packages needed for hand gestures here
