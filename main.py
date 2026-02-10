@@ -8,7 +8,6 @@ Team Members:
 - Kalash: Cursor movement implementation
 - Your name: Hand gestures + Integration
 
-This is the integrated version combining Om's architecture with Kalash's cursor control.
 """
 
 import cv2
@@ -57,7 +56,7 @@ def main():
     
     print("\n" + "=" * 60)
     print("CONTROLS:")
-    print("  F7        - Toggle cursor control ON/OFF")
+    print("  t        - Toggle cursor control ON/OFF")
     print("  C         - Calibrate (set current position as center)")
     print("  ESC       - Exit application")
     print("=" * 60)
@@ -124,8 +123,8 @@ def main():
             elif key == ord('c') or key == ord('C'):
                 cursor_controller.calibrate(raw_yaw, raw_pitch)
             
-            # F7 to toggle (using keyboard library for F7)
-            if keyboard.is_pressed('f7'):
+            # t to toggle (using keyboard library for F7)
+            if keyboard.is_pressed('t'):
                 was_enabled = cursor_controller.toggle()
                 # Sync state manager with cursor controller
                 if was_enabled:
@@ -210,7 +209,7 @@ def _draw_ui(frame, state_manager, cursor_controller, fps, face_detected):
         )
     
     # Draw help text at bottom
-    help_text = "F7: Toggle | C: Calibrate | ESC: Exit"
+    help_text = "t: Toggle | C: Calibrate | ESC: Exit"
     text_size = cv2.getTextSize(help_text, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)[0]
     text_x = (w - text_size[0]) // 2
     cv2.putText(
