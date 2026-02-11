@@ -19,6 +19,8 @@ from core.head_pose import HeadPoseEstimator
 from core.cursor_controller import CursorController
 from core.state_manager import StateManager
 from utils.fps import FPSCounter
+from hand_gestures.hand_detector import HandDetector
+from hand_gestures.gesture_actions import GestureActions
 
 
 def main():
@@ -53,6 +55,13 @@ def main():
     
     fps_counter = FPSCounter()
     print("✓ FPS counter initialized")
+
+    hand_detector = HandDetector()
+    print("✓ Hand detector initialized")
+
+    gesture_actions = GestureActions()
+    print("✓ Gesture actions initialized")
+
     
     print("\n" + "=" * 60)
     print("CONTROLS:")
@@ -102,6 +111,18 @@ def main():
                 # Optional: Draw face mesh for debugging
                 # face_detector.draw(frame, result)
             
+            # ---------------- HAND GESTURE PROCESSING ----------------
+            hand_result = hand_detector.detect_hands(frame)
+
+            if hand_result.multi_hand_landmarks:
+                for hand_landmarks in hand_result.multi_hand_landmarks:
+                    # Draw hand landmarks for visual feedback
+                    hand_detector.draw_landmarks(frame, hand_landmarks)
+
+                    # Perform gesture-based actions
+                    gesture_actions.perform_actions(hand_landmarks)
+
+
             # Get current FPS
             current_fps = fps_counter.tick()
             
