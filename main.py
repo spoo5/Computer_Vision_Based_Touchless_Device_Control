@@ -21,6 +21,8 @@ from core.state_manager import StateManager
 from utils.fps import FPSCounter
 from hand_gestures.hand_detector import HandDetector
 from hand_gestures.gesture_actions import GestureActions
+from keyboard_control.air_keyboard import AirKeyboard
+
 
 
 def main():
@@ -55,6 +57,9 @@ def main():
     
     fps_counter = FPSCounter()
     print("✓ FPS counter initialized")
+
+    air_keyboard = AirKeyboard()
+    print("✓ Air keyboard initialized")
 
     hand_detector = HandDetector()
     print("✓ Hand detector initialized")
@@ -111,16 +116,31 @@ def main():
                 # Optional: Draw face mesh for debugging
                 # face_detector.draw(frame, result)
             
-            # ---------------- HAND GESTURE PROCESSING ----------------
+            # ---------------- HAND PROCESSING ----------------
             hand_result = hand_detector.detect_hands(frame)
 
+            right_hand = None
+            left_hand = None
+
             if hand_result.multi_hand_landmarks:
-                for hand_landmarks in hand_result.multi_hand_landmarks:
-                    # Draw hand landmarks for visual feedback
+                for i, hand_landmarks in enumerate(hand_result.multi_hand_landmarks):
+                    # Draw hand landmarks
                     hand_detector.draw_landmarks(frame, hand_landmarks)
 
-                    # Perform gesture-based actions
+                    # Gesture-based actions (scroll / zoom / volume)
                     gesture_actions.perform_actions(hand_landmarks)
+
+                    # Identify left / right hand
+                    if hand_result.multi_handedness:
+                        label = hand_result.multi_handedness[i].classification[0].label
+                        if label == "Right":
+                            right_hand = hand_landmarks.landmark
+                        elif label == "Left":
+                            left_hand = hand_landmarks.landmark
+
+            # ---------------- AIR KEYBOARD ----------------
+            air_keyboard.process(right_hand, left_hand, frame)
+
 
 
             # Get current FPS
