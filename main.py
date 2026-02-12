@@ -22,6 +22,8 @@ from utils.fps import FPSCounter
 from hand_gestures.hand_detector import HandDetector
 from hand_gestures.gesture_actions import GestureActions
 from keyboard_control.air_keyboard import AirKeyboard
+from core.blink_detector import BlinkDetector
+
 
 
 
@@ -41,6 +43,9 @@ def main():
     
     face_detector = FaceDetector()
     print("✓ Face detector initialized")
+
+    blink_detector = BlinkDetector()
+    print("✓ Blink detector initialized")
     
     head_pose = HeadPoseEstimator()
     print("✓ Head pose estimator initialized")
@@ -103,6 +108,9 @@ def main():
             # Process head pose if face is detected
             if face_detected:
                 landmarks = result.multi_face_landmarks[0].landmark
+                
+                # Blink detection (LEFT EYE → CLICK)
+                blink_detector.process(landmarks, w, h)
                 
                 # Estimate head orientation
                 pitch, yaw, forward_axis = head_pose.estimate(landmarks, w, h)
