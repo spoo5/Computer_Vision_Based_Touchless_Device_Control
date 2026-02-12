@@ -18,7 +18,7 @@ A computer vision system that allows touchless control of your computer using he
 - **State Management**: Clean state system (ON/OFF/PAUSED/FROZEN)
 - **Visual Feedback**: On-screen display of system status and FPS
 
-### Coming Soon 🚧
+### Coming Soon 🚧(DONE)
 - Virtual keyboard typing (Shreyas)
 - Hand gestures for scrolling
 - Hand gestures for zooming
@@ -38,6 +38,13 @@ Computer_Vision_Based_Touchless_Device_Control/
 │   ├── state.py              # System state enum
 │   └── state_manager.py      # State management
 │
+├── hand_gestures/
+│   ├── gesture_actions.py
+│   └── hand_detector.py
+│
+├── keyboard_control
+│    └──air_keyboard.py
+│
 ├── utils/                     # Utility functions
 │   └── fps.py                # FPS counter
 │
@@ -55,7 +62,7 @@ Computer_Vision_Based_Touchless_Device_Control/
 ### Prerequisites
 - Python 3.8 or higher
 - Webcam
-- Windows/Linux/Mac OS
+- Windows
 
 ### Setup Steps
 
@@ -72,8 +79,6 @@ Computer_Vision_Based_Touchless_Device_Control/
    # On Windows:
    venv\Scripts\activate
    
-   # On Mac/Linux:
-   source venv/bin/activate
    ```
 
 3. **Install dependencies**
@@ -93,7 +98,7 @@ python main.py
 
 | Key | Action |
 |-----|--------|
-| **F7** | Toggle cursor control ON/OFF |
+| **t** | Toggle cursor control ON/OFF |
 | **C** | Calibrate (set current head position as center) |
 | **ESC** | Exit application |
 
